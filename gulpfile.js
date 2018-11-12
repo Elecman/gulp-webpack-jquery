@@ -2,7 +2,6 @@
 var gulp = require('gulp'),
     watch = require('gulp-watch'),
     prefixer = require('gulp-autoprefixer'),
-    uglify = require('gulp-uglify'),
     sass = require('gulp-sass'),
     sourcemaps = require('gulp-sourcemaps'),
     rigger = require('gulp-rigger'),
@@ -12,8 +11,9 @@ var gulp = require('gulp'),
     rimraf = require('rimraf'),
     browserSync = require("browser-sync"),
     reload = browserSync.reload,
-    purgecss = require('gulp-purgecss'),
+    //purgecss = require('gulp-purgecss'),
     webpack = require('webpack'),
+    webpackConfig = require('./webpack.config'),
     webpackStream = require('webpack-stream');
 
 var path = {
@@ -26,7 +26,7 @@ var path = {
     },
     src: { //Пути откуда брать исходники
         html: 'src/templates/*.html', //Синтаксис src/*.html говорит gulp что мы хотим взять все файлы с расширением .html
-        js: 'src/js/main.js',//В стилях и скриптах нам понадобятся только main файлы
+        js: 'src/js',//В стилях и скриптах нам понадобятся только main файлы
         style: 'src/style/style.scss',
         img: 'src/img/**/*.*', //Синтаксис img/**/*.* означает - взять все файлы всех расширений из папки и из вложенных каталогов
         fonts: 'src/fonts/**/*.*'
@@ -60,28 +60,8 @@ gulp.task('html:build', function () {
 
 gulp.task('js:build', function () {
     gulp.src(path.src.js) //Найдем наш main файл
-        .pipe(rigger()) //Прогоним через rigger
+        .pipe(webpackStream(webpackConfig, webpack))
         .pipe(sourcemaps.init()) //Инициализируем sourcemap
-        .pipe(webpackStream({
-            output: {
-                filename: 'main.js',
-            },
-            module: {
-                rules: [
-                    {
-                        test: /\.(js)$/,
-                        exclude: /(node_modules)/,
-                        loader: 'babel-loader',
-                        query: {
-                            presets: ['env']
-                        }
-                    }
-                ]
-            },
-            externals: {
-                jquery: 'jQuery'
-            }
-        }))
         //.pipe(uglify()) //Сожмем наш js
         .pipe(sourcemaps.write("source_map")) //Пропишем карты
         .pipe(gulp.dest(path.build.js)) //Выплюнем готовый файл в build
@@ -116,16 +96,16 @@ gulp.task('fonts:build', function() {
         .pipe(gulp.dest(path.build.fonts))
 });
 
-gulp.task('purgecss', () => {
-    return gulp
-        .src('build/css/*.css')
-        .pipe(
-            purgecss({
-                content: ['src/templates/*.html']
-            })
-        )
-        .pipe(gulp.dest('build/test/'))
-});
+// gulp.task('purgecss', () => {
+//     return gulp
+//         .src('build/css/*.css')
+//         .pipe(
+//             purgecss({
+//                 content: ['src/templates/*.html']
+//             })
+//         )
+//         .pipe(gulp.dest('build/test/'))
+// });
 
 gulp.task('build', [
     'html:build',

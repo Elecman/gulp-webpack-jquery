@@ -1,0 +1,42 @@
+@font-face {
+  font-family: 'CirceWebRegular';
+  src: url('../fonts/Circe-Regular.eot');
+  src: url('../fonts/Circe-Regular.eot?#iefix') format('embedded-opentype'),
+  url('../fonts/Circe-Regular.woff') format('woff'),
+  url('../fonts/Circe-Regular.ttf') format('truetype'),
+  url('../fonts/Circe-Regular.svg#CirceWeb-Regular') format('svg');
+  font-weight: 500;
+  font-style: normal;
+  font-weight: 400;
+}
+
+/* Font Circe Bold: Copyright В© ParaType, 2013. All rights reserved.*/
+@font-face {
+  font-family: 'CirceWebBold';
+  src: url('../fonts/Circe-Bold.eot');
+  src: url('../fonts/Circe-Bold.eot?#iefix') format('embedded-opentype'),
+  url('../fonts/Circe-Bold.woff') format('woff'),
+  url('../fonts/Circe-Bold.ttf') format('truetype'),
+  url('../fonts/Circe-Bold.svg#CirceWeb-Bold') format('svg');
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* Font Circe Extra Bold: Copyright В© ParaType, 2013. All rights reserved.*/
+@font-face {
+  font-family: 'CirceWebExtraBold';
+  src: url('../fonts/Circe-ExtraBold.eot');
+  src: url('../fonts/Circe-ExtraBold.eot?#iefix') format('embedded-opentype'),
+  url('../fonts/Circe-ExtraBold.woff') format('woff'),
+  url('../fonts/Circe-ExtraBold.ttf') format('truetype'),
+  url('../fonts/Circe-ExtraBold.svg#CirceWeb-ExtraBold') format('svg');
+  font-weight: 900;
+  font-style: normal;
+}
+//////////////////////////////////////////////
+$font-size-base: 14px !default;
+$font-family-circle-regular: 'CirceWebRegular', sans-serif !default;
+$font-family-circle-bold: 'CirceWebBold', sans-serif !default;
+$font-family-circle-extra-bold: 'CirceWebExtraBold', sans-serif !default;
+///////////////////////////////////////////////
+$page-color: #107BA3;
